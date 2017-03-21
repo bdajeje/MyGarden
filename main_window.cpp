@@ -2,21 +2,41 @@
 
 #include <QMenuBar>
 #include <QVBoxLayout>
+#include <QPushButton>
 
 #include "utils/icons_manager.hpp"
 
 MainWindow::MainWindow(QWidget *parent)
 	: QMainWindow(parent)
 {
-	auto central_widget = new QWidget(this);
-	auto main_layout    = new QVBoxLayout();
+	auto central_widget  = new QWidget(this);
+	auto main_layout     = new QHBoxLayout();
+	auto controls_layout = new QVBoxLayout();
 
 	// Window icon
 	const QIcon& icon = utils::IconsManager::get("icon.png");
 	setWindowIcon( icon );
 
+	auto _w_plantations_list = new QComboBox;
+	//todo
+	_w_plantations_list->addItem("Nani");
+	_w_plantations_list->addItem("Nana");
+
+	auto btn_add_plantation = new QPushButton(tr("Add"));
+	_w_garden_view = new GardenView;
+
+	controls_layout->addWidget(_w_plantations_list);
+	controls_layout->addWidget(btn_add_plantation);
+	main_layout->addLayout(controls_layout);
+	main_layout->addWidget(_w_garden_view);
+
 	// Menu
 	createMenu();
+
+	central_widget->setLayout(main_layout);
+	setCentralWidget(central_widget);
+
+	connect(btn_add_plantation, SIGNAL(released()), this, SLOT(addNewPlantation()));
 }
 
 void MainWindow::createMenu()
@@ -56,4 +76,10 @@ void MainWindow::showCreatePlantationType()
 		_w_plantation_dialog = new PlantationDialog(this);
 
 	_w_plantation_dialog->show();
+}
+
+void MainWindow::addNewPlantation()
+{
+	QString text = _w_plantations_list->currentText();
+	_w_garden_view->addPlantation(text); // todo: get plantation object from QVariant of _w_plantations_list
 }

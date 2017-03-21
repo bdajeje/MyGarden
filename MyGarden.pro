@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui webenginewidgets
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -18,7 +18,8 @@ SOURCES += main.cpp\
 		utils/files.cpp \
 		widgets/plantation_dialog.cpp \
 		models/plantation.cpp \
-		widgets/jlabel.cpp
+		widgets/jlabel.cpp \
+		widgets/garden_view.cpp
 
 HEADERS  += main_window.hpp \
 		utils/files.hpp \
@@ -28,4 +29,5 @@ HEADERS  += main_window.hpp \
 		widgets/plantation_dialog.hpp \
 		models/plantation.hpp \
 		utils/json.hpp \
-		widgets/jlabel.hpp
+		widgets/jlabel.hpp \
+		widgets/garden_view.hpp
