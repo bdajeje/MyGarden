@@ -1,6 +1,23 @@
-
 <html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="css/jquery-ui.css" />
+    <link rel="stylesheet" type="text/css" href="css/main.css" />
+  </head>
   <body>
-    <p>Nani</p>
+    <script>
+      // Create a plantation item and add it to the view
+      function addPlantation(name, bg_color, text_color) {
+        $element = $('<div class="plantation-wrapper" style="display:inline-block">\
+          <div class="plantation" style="background-color: '+bg_color+'; border: 1px solid black; width: 200px; height: 200px;">\
+            <span class="name" style="color: '+text_color+'">'+name+'</span>\
+          </div>\
+        </div>');
+
+        $element.children('.plantation').resizable();
+        $element.draggable();
+
+        $('body').append($element);
+      };
+    </script>
   </body>
 </html>

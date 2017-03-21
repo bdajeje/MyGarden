@@ -11,11 +11,15 @@
 
 namespace utils {
 
+const std::map<Property, QString> Properties::m_properties_keys = {
+	{LastSeenYear, "LastSeenYear"},
+	{GardenBackgroundColor, "GardenBackgroundColor"},
+	{Undefined, "undefined"}
+};
+
 Properties::Properties(QString filepath)
   : m_filepath( filepath )
 {
-  initProperties();
-
   // Read property files
   std::string content;
   if(!files::read( m_filepath.toStdString(), content) || content.empty())
@@ -40,12 +44,7 @@ Properties::Properties(QString filepath)
 
   // Put default values for empty fields
   verify( Property::LastSeenYear, QString::number(QDate::currentDate().year()) );
-}
-
-void Properties::initProperties()
-{
-  m_properties_keys[LastSeenYear] = "LastSeenYear";
-  m_properties_keys[Undefined]    = "undefined";
+  verify( Property::GardenBackgroundColor, "#17a81a" );
 }
 
 void Properties::set(QString key, QString value)
@@ -62,8 +61,10 @@ void Properties::set(QString key, QString value)
 
 void Properties::verify(Property property, const QString& value)
 {
-  if( m_properties_values[property].isEmpty() )
-	m_properties_values[property] = value;
+  QString& property_value = m_properties_values[property];
+
+  if( property_value.isEmpty() )
+	property_value = value;
 }
 
 Properties& Properties::instance()
@@ -79,11 +80,11 @@ bool Properties::save( Property property, const QString& value )
   return instance().save();
 }
 
-bool Properties::save()
+bool Properties::save() const
 {
   QString content;
   for( const auto it : m_properties_values )
-	content += m_properties_keys[it.first] + '=' + it.second + '\n';
+	content += m_properties_keys.at(it.first) + '=' + it.second + '\n';
 
   return files::create(m_filepath.toStdString(), content.toStdString());
 }

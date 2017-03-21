@@ -12,6 +12,10 @@ class GardenView final : public QWebEngineView
 		GardenView(QWidget* parent = Q_NULLPTR);
 
 		void addPlantation(const QString& text);
+
+	protected slots:
+
+		void pageLoaded(bool success);
 };
 
 #endif // GARDENVIEW_H

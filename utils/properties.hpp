@@ -9,7 +9,7 @@
 namespace utils {
 
 /*! Existing properties */
-enum Property { LastSeenYear, Undefined };
+enum Property { GardenBackgroundColor, LastSeenYear, Undefined };
 
 class Properties final
 {
@@ -25,14 +25,13 @@ class Properties final
   private:
 
 	Properties(QString filepath);
-	bool save();
+	bool save() const;
 	void verify(Property property, const QString& value);
-	void initProperties();
 	void set(QString key, QString value);
 
   private:
 
-	std::map<Property, QString> m_properties_keys;
+	static const std::map<Property, QString> m_properties_keys;
 	std::map<Property, QString> m_properties_values;
 	const QString m_filepath;
 	bool m_valid {false};

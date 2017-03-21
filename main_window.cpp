@@ -17,7 +17,7 @@ MainWindow::MainWindow(QWidget *parent)
 	const QIcon& icon = utils::IconsManager::get("icon.png");
 	setWindowIcon( icon );
 
-	auto _w_plantations_list = new QComboBox;
+	_w_plantations_list = new QComboBox;
 	//todo
 	_w_plantations_list->addItem("Nani");
 	_w_plantations_list->addItem("Nana");
@@ -81,5 +81,7 @@ void MainWindow::showCreatePlantationType()
 void MainWindow::addNewPlantation()
 {
 	QString text = _w_plantations_list->currentText();
-	_w_garden_view->addPlantation(text); // todo: get plantation object from QVariant of _w_plantations_list
+
+	// todo: get plantation object from QVariant of _w_plantations_list
+	_w_garden_view->addPlantation(text);
 }
